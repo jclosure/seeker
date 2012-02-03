@@ -1,5 +1,5 @@
 require 'whois'
-require './retryable'
+require 'retryable'
 
 
 class Seeker
