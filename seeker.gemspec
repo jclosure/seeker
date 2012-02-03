@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.date = "2012-02-03"
   s.description = "Rapid lookup of bulk list content using network content and services"
   s.email = "jclosure@gmail.com"
-  s.extra_rdoc_files = ["README.rdoc", "lib/retryable.rb", "lib/seeker.rb"]
-  s.files = ["README.rdoc", "Rakefile", "lib/retryable.rb", "lib/seeker.rb", "Manifest", "seeker.gemspec"]
+  s.extra_rdoc_files = ["CHANGELOG", "README.rdoc", "lib/retryable.rb", "lib/seeker.rb"]
+  s.files = ["CHANGELOG", "README.rdoc", "Rakefile", "lib/retryable.rb", "lib/seeker.rb", "seeker.gemspec", "Manifest"]
   s.homepage = "http://github.com/jclosure/seeker"
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Seeker", "--main", "README.rdoc"]
   s.require_paths = ["lib"]
