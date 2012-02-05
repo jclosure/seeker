@@ -5,7 +5,7 @@ require 'factories.rb'
 describe Seeker, "doing bulk checks for dns name availability" do
 
   before :all do
-    @list = (1..5).collect { Factory(:word) }.map { |w| w.value }
+    @list = (1..5).collect {Factory(:domainname)}
     @seeker = Seeker.new
   end
 
@@ -20,8 +20,17 @@ describe Seeker, "doing bulk checks for dns name availability" do
     end
   end
   
-  
-  it "checks each word in the file for dbs availability using the tld ext passed" do
-    @seeker.work_list(@list) { |word| domain_name = word + '.com' }
+  it "works with a list of string domain names" do
+    @seeker.work_list ['foobar.com', 'monkeyass.org']
   end
+  
+  it "takes a list of string words allowing a block to build domain names" do
+    @seeker.work_list(['foobar', 'monkeyass']) { |word| Domainname.new(word, 'com') { |word, tld| word + '.' + tld } } 
+  end
+  
+  it "checks each word in the file for dns availability using the tld ext passed" do
+    @seeker.work_list(@list)
+  end
+  
+  
 end

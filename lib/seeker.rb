@@ -1,6 +1,6 @@
 require 'whois'
 require 'retryable'
-require 'word'
+require 'domain_name'
 
 
 class Seeker
@@ -43,11 +43,11 @@ class Seeker
   
   def probe_availability domain_name
     begin
-      puts 'probing: ' + domain_name
-      if (r = @client.query(domain_name))
+      puts 'probing: ' + domain_name.to_s
+      if (r = @client.query(domain_name.to_s))
         if (r.available?)
-          puts 'available: ' + domain_name
-          @out.puts domain_name
+          puts 'available: ' + domain_name.to_s
+          @out.puts domain_name.to_s
           @out.flush
         end
       end
