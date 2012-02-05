@@ -2,3 +2,4 @@ pkg
 doc
 Manifest
 Gemfile.lock
+spec/*out.txt
