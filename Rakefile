@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'rake'
 require 'echoe'
+require 'rspec/core/rake_task'
 
 Echoe.new('seeker', '0.1.0') do |p|
   p.description   = "Rapid lookup of bulk list content using network content and services"
@@ -12,3 +13,6 @@ Echoe.new('seeker', '0.1.0') do |p|
 end
 
 Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each { |ext| load ext }
+
+RSpec::Core::RakeTask.new('spec')
+task :default => :spec
