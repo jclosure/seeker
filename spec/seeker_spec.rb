@@ -14,7 +14,7 @@ describe Seeker, "doing bulk checks for dns name availability" do
   end
 
   it "takes an input file and writes an output file" do
-    @seeker.work_file('./spec/testfile.txt', 'testfile.out.txt') do |line|
+    @seeker.work_file('./spec/testfile.txt', './spec/testfile.out.txt') do |line|
       words = line.downcase.chomp.split.map { |word| word.strip }
       @seeker.work_list(words) { |word| domain_name = word + '.com' }
     end
