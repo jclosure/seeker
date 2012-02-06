@@ -1,6 +1,6 @@
 require 'whois'
 require 'retryable'
-require 'domain_name'
+require 'active_record'
 
 
 class Seeker
@@ -58,3 +58,7 @@ class Seeker
   end
   
 end
+
+# class ActiveRecord::Base
+#   include Seeker #see: http://railscasts.com/episodes/135-making-a-gem
+# end
