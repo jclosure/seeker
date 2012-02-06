@@ -3,7 +3,7 @@ require 'factories.rb'
 require 'domain_name'
 
 
-describe Seeker, "doing bulk checks for dns name availability" do
+describe Seeker, "doing bulk checks for dns name availability:bility" do
 
   before :all do
     @list = (1..5).collect {Factory(:domainname)}
@@ -32,6 +32,27 @@ describe Seeker, "doing bulk checks for dns name availability" do
   it "checks each word in the file for dns availability using the tld ext passed" do
     @seeker.work_list(@list)
   end
+  
+  it "can handle outputting to a string io" do
+    io = StringIO.new
+    @seeker.probe_availability('monkeyasdfasdf.com') { io }
+    p 'your output is: ' + io.string
+  end
+  
+  # it "uses a progressbar to indicate progress of processing" do
+  #   
+  #   require 'progressbar'
+  # 
+  #   bar = ProgressBar.new("Example progress", 50)
+  #   total = 0
+  #   until total >= 50
+  #     sleep(rand(2)/2.0)
+  #     increment = (rand(6) + 3)
+  #     bar.inc(increment)
+  #     total += increment
+  #   end
+  #   
+  # end
   
   
 end

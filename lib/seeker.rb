@@ -9,11 +9,12 @@ class Seeker
   
   def initialize 
     @client = Whois::Client.new(:timeout => 5)
-    self.reset_out
+    self.set_out
   end
   
-  def reset_out
+  def set_out 
     @out = $stdout
+    @out = yield if block_given?
   end
   
   def work_file(in_file_name, out_file_name)
@@ -25,7 +26,7 @@ class Seeker
   ensure
     @file.close if @file
     @out.close if @outfile
-    self.reset_out
+    self.set_out
   end
   
   def work_list(list)
@@ -42,6 +43,7 @@ class Seeker
   end
   
   def probe_availability domain_name
+    @out = yield if block_given?
     begin
       puts 'probing: ' + domain_name.to_s
       if (r = @client.query(domain_name.to_s))
