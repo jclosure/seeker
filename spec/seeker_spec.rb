@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'factories.rb'
+require 'domain_name'
 
 
 describe Seeker, "doing bulk checks for dns name availability" do
