@@ -3,7 +3,7 @@ require 'rake'
 require 'echoe'
 
 
-Echoe.new('seeker', '0.1.0') do |p|
+Echoe.new('seeker', '0.1.1') do |p|
   p.description   = "Rapid lookup of bulk list content using network content and services"
   p.url           = "http://github.com/jclosure/seeker"
   p.author        = "Joel Holder"
