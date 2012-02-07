@@ -1,4 +1,5 @@
 require 'whois'
+require 'active_support'
 require 'active_record'
 
 begin
@@ -9,12 +10,31 @@ rescue LoadError
   require retryable_path
 end
 
+#todo: move to own file
+class Hash
+  def reverse_merge(other_hash)
+    other_hash.merge(self)
+  end
+  def reverse_merge!(other_hash)
+    # right wins if there is no left
+    merge!( other_hash ){|key,left,right| left }
+  end
+  def options_merge(options)
+    self.to_options.reverse_merge options
+  end
+  def options_merge!(options)
+    self.to_options!.reverse_merge! options
+  end
+end
+
 
 class Seeker
 
-  attr_accessor :file, :outfile
+  attr_accessor :file, :outfile, :options
 
-  def initialize
+  def initialize options = {}
+    @options = options.options_merge :suffix => '.com',
+                                     :delimeter => ' '
     @client = Whois::Client.new(:timeout => 5)
     self.set_out
   end
@@ -24,16 +44,16 @@ class Seeker
     @out = yield if block_given?
   end
 
-  def work_file(*args)
+  def work_file(infile, outfile, suffix = nil, delimeter = nil)
     begin
-      @file = open(args[0])
-      @out = open(args[1], 'w')
+      @file = open(infile)
+      @out = open(outfile, 'w')
       while line = @file.gets
         if block_given?
           yield(line)
         else
           #assume args[2] is the split delimiter and args[3] is the tld (eg: .com)
-          self.work_list(line.split(args[2])) { |word| word + (args[3] || ' ')}
+          self.work_list(line.split(delimeter)) { |word| word + (suffix || @options[:suffix]) }
         end
       end
     ensure
@@ -43,7 +63,8 @@ class Seeker
     end
   end
 
-  def work_list(list)
+  def work_list(*list)
+    list = list[0] if list[0].is_a? Array rescue list #handles when args are splatted
     list.each do | domain_name |
       domain_name = yield(domain_name) if block_given?
       begin
