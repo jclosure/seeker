@@ -4,7 +4,7 @@ Gem for seeking various types of information in bulk from internet and network s
 
 == Install
 
-	gem install jclosure-seeker --source http://gems.githum.com
+	gem install seeker
 	
 == Usage
 
@@ -12,9 +12,8 @@ Instantiate a Seeker and ask it to do your bidding.
 
 Example:
 
-checker = BulkChecker.new
-
-checker.work_file('testfile.txt', 'testfile.out.txt', 'com') do |line, ext|
+seeker = Seeker.new
+seeker.work_file('testfile.txt', 'testfile.out.txt') do |line, ext|
       line.downcase.chomp.split.map do | word |
           word.strip!
           domain_name = word + '.' + ext
