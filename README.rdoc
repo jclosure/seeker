@@ -10,15 +10,15 @@ Gem for seeking various types of information in bulk from internet and network s
 
 Instantiate a Seeker and ask it to do your bidding.
 
-Example:
+Example: 
 
-	seeker = Seeker.new
-	
-	seeker.work_file('testfile.txt', 'testfile.out.txt') do |line, ext|
-	      line.downcase.chomp.split.map do | word |
-	          word.strip!
-	          domain_name = word + '.' + ext
-	      end
-	end
+seeker = Seeker.new
+
+seeker.work_file('testfile.txt', 'testfile.out.txt') do |line, ext|
+      line.downcase.chomp.split.map do | word |
+          word.strip!
+          domain_name = word + '.' + ext
+      end
+end
 
 This will test a space delimited list of words with the .com extension for dns availability.
