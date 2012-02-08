@@ -6,12 +6,12 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joel Holder"]
-  s.date = "2012-02-07"
+  s.date = "2012-02-08"
   s.description = "Rapid lookup of bulk list content using network content and services"
   s.email = "jclosure@gmail.com"
   s.executables = ["seeker"]
-  s.extra_rdoc_files = ["CHANGELOG", "README.rdoc", "bin/seeker", "lib/domain_name.rb", "lib/retryable.rb", "lib/seeker.rb"]
-  s.files = ["CHANGELOG", "Gemfile", "README.rdoc", "Rakefile", "bin/seeker", "init.rb", "lib/domain_name.rb", "lib/retryable.rb", "lib/seeker.rb", "seeker.gemspec", "spec/factories.rb", "spec/seeker_spec.rb", "spec/spec_helper.rb", "spec/testfile.out.txt", "spec/testfile.txt", "Manifest"]
+  s.extra_rdoc_files = ["CHANGELOG", "README.rdoc", "bin/seeker", "lib/domain_name.rb", "lib/hash_extensions.rb", "lib/retryable.rb", "lib/seeker.rb"]
+  s.files = ["CHANGELOG", "Gemfile", "README.rdoc", "Rakefile", "bin/seeker", "init.rb", "lib/domain_name.rb", "lib/hash_extensions.rb", "lib/retryable.rb", "lib/seeker.rb", "seeker.gemspec", "spec/factories.rb", "spec/seeker_spec.rb", "spec/spec_helper.rb", "spec/testfile.out.txt", "spec/testfile.txt", "Manifest"]
   s.homepage = "http://github.com/jclosure/seeker"
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Seeker", "--main", "README.rdoc"]
   s.require_paths = ["lib"]
