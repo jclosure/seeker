@@ -2,35 +2,23 @@ require 'whois'
 require 'active_support'
 require 'active_record'
 
-begin
-  require 'retryable'
-rescue LoadError
-  puts 'unable to load retryable from gem cache.  falling back to local filesystem.'
-  retryable_path = File.expand_path('retryable.rb', File.dirname(__FILE__))
-  require retryable_path
-end
 
-#todo: move to own file
-class Hash
-  def reverse_merge(other_hash)
-    other_hash.merge(self)
-  end
-  def reverse_merge!(other_hash)
-    # right wins if there is no left
-    merge!( other_hash ){|key,left,right| left }
-  end
-  def options_merge(options)
-    self.to_options.reverse_merge options
-  end
-  def options_merge!(options)
-    self.to_options!.reverse_merge! options
+def smart_require name
+  begin
+    require name
+  rescue LoadError
+    puts "unable to load #{name} from gem cache.  falling back to local directory."
+    path = File.expand_path("#{name}.rb", File.dirname(__FILE__))
+    require path
   end
 end
 
+smart_require 'hash_extensions'
+smart_require 'retryable'
 
 class Seeker
 
-  attr_accessor :file, :outfile, :options
+  attr_accessor :out, :options
 
   def initialize options = {}
     @options = options.options_merge :suffix => '.com',
@@ -52,7 +40,7 @@ class Seeker
         if block_given?
           yield(line)
         else
-          #assume args[2] is the split delimiter and args[3] is the tld (eg: .com)
+          #assume args[2] is the split delimiter and args[3] is the suffix (eg: tld)
           self.work_list(line.split(delimeter)) { |word| word + (suffix || @options[:suffix]) }
         end
       end
@@ -64,7 +52,7 @@ class Seeker
   end
 
   def work_list(*list)
-    list = list[0] if list[0].is_a? Array rescue list #handles when args are splatted
+    list = list[0] if list[0].is_a? Array rescue list #handles when list items are not splatted
     list.each do | domain_name |
       domain_name = yield(domain_name) if block_given?
       begin
