@@ -1,15 +1,7 @@
 #!/usr/bin/env ruby
 
-
 seeker_path = File.expand_path('../../lib/seeker.rb', __FILE__)
-
 
 require seeker_path
 
-seeker = Seeker.new
-
-method = ARGV.shift
-
-
-
-seeker.send(method.to_sym, *ARGV)
+Seeker.new.send(ARGV.shift.to_sym, *ARGV)

@@ -1,6 +1,6 @@
 = Seeker
 
-Gem for seeking various types of information in bulk from internet and network services and data providers
+Bulk DNS availability trawler.
 
 == Install
 
