@@ -17,4 +17,14 @@ describe Combinator, "Combinators behavior" do
     combos = @combinator.generate_combos @list.map { |domain_name| domain_name.word }
     p combos
   end
+  
+  it "adds a prefix before each word in a list" do
+    combos = @combinator.add_prefix 'mega', @list.map { |domain_name| domain_name.word }
+    p combos
+  end
+  
+  it "adds a suffix after each word in a list" do
+    combos = @combinator.add_suffix 'ify', @list.map { |domain_name| domain_name.word }
+    p combos
+  end
 end
