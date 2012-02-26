@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+path = File.expand_path('../../lib/combinator.rb', __FILE__)
+
+require path
+
+Combinator.new.send(ARGV.shift.to_sym, *ARGV)
